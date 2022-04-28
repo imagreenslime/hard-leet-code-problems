@@ -21,4 +21,7 @@ class Solution:
             return total
         b = height.index(max(height))
         a = height[b:]
+        # we first split the height into two halfs at the max height
         return (adder(height, b)) + (adder(a[::-1], len(height) - b))
+        # we then take the 2nd half that is de-escalating, and reverse it
+        # we plug it into the function and get the answer
