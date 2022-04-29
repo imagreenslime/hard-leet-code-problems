@@ -11,8 +11,8 @@ class Solution:
                     # so if the height ever goes down below the current height, we will start to keep track
                     # c is a temporary tracker to mark how many dip under height
                     while temp[c] < temp[left]:
+                        total += temp[left] - temp[c]
                         c += 1
-                        total += temp[left] - temp[c - 1]
                     # we add up all the water drips until the height goes back up to the current height
                     left = c
                     # then we set the current height to where we left off
