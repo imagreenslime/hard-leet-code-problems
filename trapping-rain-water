@@ -1,0 +1,26 @@
+class Solution:
+    def trap(self, height):
+        # 2 pointer solution but modified to one pointer done twice
+        # a new function is used as the original array will be split into 2 parts
+        # both parts will then be plugged into the function and added up for our answer
+        def adder(height, maxheight):
+            total, start = 0, 0
+            while start < maxheight - 1:
+                if height[start + 1] < height[start]:
+                    temp = start + 1
+                    # so if the height ever goes down below the current height, we will start to keep track
+                    # c is a temporary tracker to mark how many dip under height
+                    while height[temp] < height[start]:
+                        total += height[start] - height[temp]
+                        temp += 1
+                    # we add up all the water drips until the height goes back up to the current height
+                    start = temp
+                    # then we set the current height to where we left off
+                else:
+                    start += 1
+            return total
+        left = height.index(max(height))
+        right = height[left:]
+        # split the height into two halves at where the max height is
+        return (adder(height, left)) + (adder(right[::-1], len(height) - left))
+        # then take the 2nd half that is de-escalating, and reverse it as the function only works escalating up
